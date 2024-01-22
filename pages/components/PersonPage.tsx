@@ -4,6 +4,10 @@ import Image from 'next/image';
 import maleIAvatar from "../../public/images/male3D.png";
 import femaleAvatar from "../../public/images/female3D.png";
 import defaultIcon from "../../public/images/default.png";
+import dynamic from 'next/dynamic';
+const animationData = require('../../public/dataFetchingAnimation.json');
+
+const LottieAnimation = dynamic(() => import('../components/LottieAnimation'), { ssr: false });
 
 interface PersonPageProps {
     person: Person | null;
@@ -21,7 +25,11 @@ const PersonPage: React.FC<PersonPageProps> = ({ person }) => {
     };
 
     if (!person) {
-        return <div>No person data available.</div>;
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                <LottieAnimation animationData={animationData} />
+            </div>
+        )
     }
 
     return (
